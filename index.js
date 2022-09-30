@@ -88,17 +88,23 @@
 
 	var timer = setInterval(() => {
 		getWorkList();
-		second+=0.07;
+		second += 0.07;
 		console.log(`已经滚动了${second}秒, 程序已经收集到${result.size}条数据 (${month}月)`);
 		if (second >= 7) {
 			clearInterval(timer);
 			console.log('==== 滚动结束, 开始计算 ====');
 			// 获取已经提交的天数
 			const days = [...result].reverse();
-			// 循环workDay
-			for (let i = 0; i < workDay.length; i++) {
-				if (!days.includes(workDay[i])) {
-					console.log('[计算结果😄] 未提交的日期为: ', workDay[i]);
+			// 如果days数组内容和工作日天数相同, 则说明已经提交了所有的工作日
+			
+			if (days.length === needWorkDay) {
+				console.log('恭喜你, 本月已经提交了所有的工作日');
+			} else {
+				// 循环workDay
+				for (let i = 0; i < needWorkDay; i++) {
+					if (!days.includes(workDay[i])) {
+						console.log('[计算结果😄] 未提交的日期为: ', workDay[i]);
+					}
 				}
 			}
 		}
