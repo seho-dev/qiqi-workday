@@ -10,3 +10,5 @@
 ```js
 import("https://cdn.jsdelivr.net/gh/1018715564/qiqi-workday@latest/index.js")
 ```
+<!-- 引入本地github图片 -->
+![](https://raw.githubusercontent.com/1018715564/qiqi-workday/main/index.png)
