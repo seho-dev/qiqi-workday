@@ -78,7 +78,7 @@
 				}
 			}
 		}
-		return result.reverse();
+		return [...new Set(result)].reverse();
 	};
 	// 获取已经提交的天数
 	const days = getWorkList();
