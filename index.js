@@ -43,6 +43,9 @@
 		return date.getDay() === 6 || date.getDay() === 0;
 	};
 
+	console.log(
+		'==== 请开始滚动消息列表 (在7秒内随意滚动, 用于程序收集数据, 滚动的数据区间务必要在当前月份之内) ===='
+	);
 	const date = new Date();
 	const month = date.getMonth() + 1;
 	date.setDate(1);
@@ -57,9 +60,10 @@
 	// 计算工作日天数
 	var needWorkDay = workDay.length;
 	console.log('[计算结果😄] 当月工作日天数应为: ', needWorkDay);
+	// 保存消息列表的已提交信息数组
+	var result = new Set();
 	// 获取消息列表已经提交的工时
 	const getWorkList = () => {
-		var result = [];
 		var workList = document.querySelectorAll('[col-id="subject"]');
 		for (let i = 0; i < workList.length; i++) {
 			// 获取子div中属性col-id为subject的子div, 并取其子类span的内容
@@ -74,18 +78,29 @@
 				// 查看获取出来的日期, 是否是本月的日期
 				if (workDate.getMonth() + 1 === month) {
 					// 将天数保存到数组中
-					result.push(workDate.getDate());
+					result.add(workDate.getDate());
 				}
 			}
 		}
-		return [...new Set(result)].reverse();
 	};
-	// 获取已经提交的天数
-	const days = getWorkList();
-	// 循环workDay
-	for (let i = 0; i < workDay.length; i++) {
-		if (!days.includes(workDay[i])) {
-			console.log('[计算结果😄] 未提交的日期为: ', workDay[i]);
+
+	var second = 0;
+
+	var timer = setInterval(() => {
+		getWorkList();
+		second+=0.07;
+		console.log(`已经滚动了${second}秒, 程序已经收集到${result.size}条数据 (${month}月)`);
+		if (second >= 7) {
+			clearInterval(timer);
+			console.log('==== 滚动结束, 开始计算 ====');
+			// 获取已经提交的天数
+			const days = [...result].reverse();
+			// 循环workDay
+			for (let i = 0; i < workDay.length; i++) {
+				if (!days.includes(workDay[i])) {
+					console.log('[计算结果😄] 未提交的日期为: ', workDay[i]);
+				}
+			}
 		}
-	}
+	}, 100);
 })();
