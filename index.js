@@ -55,7 +55,7 @@
 		date.setDate(date.getDate() + 1);
 	}
 	// 计算工作日天数
-	needWorkDay = workDay.length;
+	var needWorkDay = workDay.length;
 	console.log('[计算结果😄] 当月工作日天数应为: ', needWorkDay);
 	// 获取消息列表已经提交的工时
 	const getWorkList = () => {
