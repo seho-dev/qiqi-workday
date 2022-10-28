@@ -26,13 +26,13 @@
 			'6-26',
 			'6-27',
 			'9-12',
-			'10-01',
-			'10-02',
-			'10-03',
-			'10-04',
-			'10-05',
-			'10-06',
-			'10-07'
+			'10-1',
+			'10-2',
+			'10-3',
+			'10-4',
+			'10-5',
+			'10-6',
+			'10-7'
 		];
 		// 查看日期的月份和日期是否在节假日列表中
 		return holidays.includes(`${date.getMonth() + 1}-${date.getDate()}`);
@@ -40,6 +40,11 @@
 
 	// 判断传入的日期是否是周末
 	const isWeekend = (date) => {
+		// 跳过需要上班的调休日, 尽管调休日是周六周天
+		const fuckDays = ['10-8', '10-9'];
+		let isFuckDay = fuckDays.includes(`${date.getMonth() + 1}-${date.getDate()}`);
+		if(isFuckDay) return false;
+		// 如果是周六或者周天, 则返回true
 		return date.getDay() === 6 || date.getDay() === 0;
 	};
 
